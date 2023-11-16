@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="styles.css"> <!--Підключення таблиці стилів-->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+
+
+    <body>
+        <div class = "content">
+            <div class="border upper">
+                <div class="anthem right">In the name of Hades</div> <!--Якось зробити ще один елемент, який мона буде всунути в нижній та верхній блок-->
+                <img src="images/download_icon.png" alt="Icon" class="Icon above">
+            </div>
+
+            <div class = "container_flex">
+                <div class="Left side">
+
+                    <div class="Vertical">
+
+                        <div class="Empty block2">
+                            <img src="images/Hades_meme.jpg" alt="meme", class="meme">
+
+                            
+                        </div>
+                        <div class="Game_cover block2">
+                            <!--<img src="images/Culture_inline_Hades_PackArt.webp" alt="Cover" class="Cover">-->
+                            <form name = "FindMaxValue" action="">
+                                <input type="number" id="num1" required>
+                                <input type="number" id="num2" required>
+                                <input type="number" id="num3" required>
+                                <input type="number" id="num4" required>
+                                <input type="number" id="num5" required>
+                                <input type="number" id="num6" required>
+                                <input type="number" id="num7" required>
+                                <input type="number" id="num8" required>
+                                <input type="number" id="num9" required>
+                                <input type="number" id="num10" required>
+                                <p></p>
+                                <button type="button" onclick="FindMax()"> Submit </button>
+
+                            </form>
+                            
+
+                            <script>
+                                function FindMax(){
+                                    var num1 = document.forms["FindMaxValue"]["num1"].value;
+                                    var num2 = document.forms["FindMaxValue"]["num2"].value;
+                                    var num3 = document.forms["FindMaxValue"]["num3"].value;
+                                    var num4 = document.forms["FindMaxValue"]["num4"].value;
+                                    var num5 = document.forms["FindMaxValue"]["num5"].value;
+                                    var num6 = document.forms["FindMaxValue"]["num6"].value;
+                                    var num7 = document.forms["FindMaxValue"]["num7"].value;
+                                    var num8 = document.forms["FindMaxValue"]["num8"].value;
+                                    var num9 = document.forms["FindMaxValue"]["num9"].value;
+                                    var num10 = document.forms["FindMaxValue"]["num10"].value;
+
+                                    var nums = [num1, num2, num3, num4, num5, num6, num7, num8, num9, num10];
+
+                                    var max = Math.max.apply(null, nums);
+
+                                    alert("The max value is " + max);
+                                    document.cookie = "value="+max + "; expires = Mon, 01 Jan 2024 00:00:00; path=/";
+                                    //workWithCookies(max);
+                                }
+
+                                //if(performance.navigation.type == performance.navigation.TYPE_RELOAD)
+                                //{
+                                    //workWithCookies(max);
+                                //}
+
+                                //window.onload() = function() { workWithCookies(max); };
+
+                                
+
+                                function workWithCookies(value)
+                                {
+                                    //if(document.cookie.includes('value='))
+                                    //{
+                                        let cookieValue = document.cookie.split('value=')[1].split(';')[0];
+                                    // }
+                                    //document.cookie = "value="+value + "; expires = Mon, 01 Jan 2024 00:00:00; path=/";
+
+                                    //if(performance.navigation.type == performance.navigation.TYPE_RELOAD)
+                                    //{
+                                        
+                                        //let cookieValue = document.cookie;
+                                        //alert("The value from cookie is " + cookieValue+ "\nWhen you press Ok, this value will be deleted from the cookie");
+                                        if(confirm("The value from cookie is " + cookieValue+ "\nWhen you press Ok, this value will be deleted from the cookie"))
+                                        {
+                                            document.cookie ="value=; expires = Thu, 01 Jan 1975 00:00:00 GMT; path = /;";
+                                            alert("File cookies was succesfully deleted");
+                                            location.reload();
+                                        }
+                                    //}
+                                }
+
+                                //workWithCookies();
+
+
+
+                                
+                            </script>
+
+                            <div id="Block_with_square"></div>
+                            <script>
+                                function CalculateSquare(x, y, z)
+                                {
+                                    let p = (x + y + z) / 2;
+                                    //let p = 20;
+                                    return Math.sqrt(p*(p - x) * (p - y) * (p - z));
+                                }
+
+                                let a = 10; let b = 20; let c = 29;
+
+                                document.getElementById("Block_with_square").innerHTML =  CalculateSquare(a,b,c)</script>
+                        </div>
+
+                    </div>
+
+                    <div class="Horizontal">
+
+                        <form action="">
+                            <input type="radio" value="200" name="fontWeight" id="fontWeight200">
+                            <label for="fontWeight200">200</label>
+                            <input type="radio"  value="900" name="fontWeight" id="fontWeight900">
+                            <label for="fontWeight900">900</label>
+
+                        </form>
+
+                        <p id="Lorem_ipsum">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Impedit sunt odio voluptatum cumque voluptate. Nulla placeat fugit velit dolorem obcaecati, eligendi iusto accusamus perspiciatis, iste consequuntur temporibus tempore quibusdam excepturi.</p>
+
+                        <script>
+
+                            let weight = localStorage.getItem("fontWeight");
+                            if(weight)
+                            {
+                                document.getElementById("Lorem_ipsum").style.fontWeight = weight;
+                            }
+                            //window.scroll
+                            let lastscroll = window.pageYOffset || document.documentElement.scrollTop;
+
+                                window.addEventListener (
+                                    'scroll', 
+                                    function CheckScroll()
+                            {
+                                //let weight = localStorage.getItem();
+                                const scrollTopPosition = window.pageYOffset || document.documentElement.scrollTop;
+                                weight = document.querySelector('input[name="fontWeight"]:checked');
+                                if(weight)
+                                {
+                                    if(scrollTopPosition != lastscroll)
+                                    {
+                                        let text = document.getElementById("Lorem_ipsum");
+                                        text.style.fontWeight = weight.value;
+                                        localStorage.setItem("fontWeight", weight.value);
+                                    }
+                                }
+                                
+
+                                scrollTopPosition <= 0? 0 : scrollTopPosition;
+                                
+                            },
+                            false,
+                                );
+
+                            
+
+
+                               
+
+                                
+                            //}
+
+                            
+                        </script>
+                        <!--<a href="https://www.supergiantgames.com/" target="_blank">
+                        <img src="images/Supergiant_Games_Logo.png" alt="SuperGiant" class="SuperGiant" title="Сайт компанії">
+                        </a>-->    
+                    </div>
+
+                </div>
+                <div class="Right side">
+                    <div class="Info block" id = "Info" onmouseup="setForm(this)">
+                        <h3 class = "Paragraph header">Що таке HADES?</h3>
+                    <p class="Paragraph">Hades - гра, в жанрі rogue-lite, розроблена студією SuperGiant Games.</p>
+                    <p class="Paragraph">У ній ви граєте за персонажа на ім'я <a href="https://hades.fandom.com/wiki/Zagreus" class = "link" target="_blank">Загрей</a>, який є сином Аїда. Його метою є покинути підземне царство.</p>
+                    <br>
+                    <p class="Paragraph">Смерть у даній грі є лише умовністю (як і в більшості ігор-представників даного жанру). Померши, Загрей повертається у хаб - дім Аїда, де ви зможете поговорити з персонажами, підсилити свого персонажа, а також розблокувати нові навички та зброю.</p>
+                    </div>
+
+
+
+                    <script>
+                        class unorderlist
+                        {
+                            constructor()
+                            {
+                                this.counter = 1;
+                                this.unorderedList = [];
+                            }
+                        }
+                            function setForm(block) {
+                                var selectedText = window.getSelection().toString();
+                                if (selectedText === "In the name of Hades" && document.getElementById('listForm') === null) 
+                                {
+                                    block.innerHTML += "<form id='listForm'>" +
+                                    "<label for='item'>Element of list:</label>" +
+                                    "<input type='text' id='item' name='item' required>" +
+                                    "<button type='button' onclick='Append()'>Add</button>" +
+                                    "<button type='button' onclick='list.saveList()'>Save</button>" +
+                                    "<h4>Unordered list:</h2>" +
+                                    "</form>" +
+                                    "<ul id='outputList'></ul>";
+                                }
+                            }
+
+
+                        function Append()
+                        {
+                            var newItem = document.getElementById("item").value;
+                            document.getElementById("item").value = '';
+                            var outputList = document.getElementById("outputList");
+                            var listItem = document.createElement("li");
+                            var listI = '$' + newItem;
+                            //this.(listI);
+                            
+                            listItem.appendChild(document.createTextNode(listI));
+                            this.counter++;
+                            outputList.appendChild(listItem);
+                        }
+
+                        </script>
+
+                    <div class="menu block" id = "menu">
+                        <p id="ForList">In the name of Hades<p>
+                        
+
+                    </div>
+
+                    <script>
+                        var block1 = document.getElementById("Info");
+                        var block2 = document.getElementById("menu");
+
+                        var temp = block1.innerHTML;
+
+                        block1.innerHTML = block2.innerHTML;
+
+                        block2.innerHTML = temp;
+                        
+                    </script>
+                </div>
+                
+
+            </div>
+
+            <div class="border bottom">
+                <div class="anthem left">Gods grant me strength</div>
+                <img src="images/download_icon.png" alt="Icon" class="Icon below">    
+            </div>
+
+            
+        </div>
+
+        <script src="fourth.js">
+
+        </script> 
+        
+    </body>
+</html> 
