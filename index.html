@@ -6,7 +6,7 @@
     </head>
 
 
-    <body>
+    <body onload="getcookie()">
         <div class = "content">
             <div class="border upper">
                 <div class="anthem right">In the name of Hades</div> <!--Якось зробити ще один елемент, який мона буде всунути в нижній та верхній блок-->
@@ -42,65 +42,68 @@
                             </form>
                             
 
-                            <script>
+                             <script>
                                 function FindMax(){
-                                    var num1 = document.forms["FindMaxValue"]["num1"].value;
-                                    var num2 = document.forms["FindMaxValue"]["num2"].value;
-                                    var num3 = document.forms["FindMaxValue"]["num3"].value;
-                                    var num4 = document.forms["FindMaxValue"]["num4"].value;
-                                    var num5 = document.forms["FindMaxValue"]["num5"].value;
-                                    var num6 = document.forms["FindMaxValue"]["num6"].value;
-                                    var num7 = document.forms["FindMaxValue"]["num7"].value;
-                                    var num8 = document.forms["FindMaxValue"]["num8"].value;
-                                    var num9 = document.forms["FindMaxValue"]["num9"].value;
-                                    var num10 = document.forms["FindMaxValue"]["num10"].value;
+    var num1 = document.forms["FindMaxValue"]["num1"].value;
+    var num2 = document.forms["FindMaxValue"]["num2"].value;
+    var num3 = document.forms["FindMaxValue"]["num3"].value;
+    var num4 = document.forms["FindMaxValue"]["num4"].value;
+    var num5 = document.forms["FindMaxValue"]["num5"].value;
+    var num6 = document.forms["FindMaxValue"]["num6"].value;
+    var num7 = document.forms["FindMaxValue"]["num7"].value;
+    var num8 = document.forms["FindMaxValue"]["num8"].value;
+    var num9 = document.forms["FindMaxValue"]["num9"].value;
+    var num10 = document.forms["FindMaxValue"]["num10"].value;
 
-                                    var nums = [num1, num2, num3, num4, num5, num6, num7, num8, num9, num10];
+    var nums = [num1, num2, num3, num4, num5, num6, num7, num8, num9, num10];
 
-                                    var max = Math.max.apply(null, nums);
+    let max = Math.max.apply(null, nums);
+    //alert("MAX = " + max);
+    
 
-                                    alert("The max value is " + max);
-                                    document.cookie = "value="+max + "; expires = Mon, 01 Jan 2024 00:00:00; path=/";
-                                    //workWithCookies(max);
-                                }
+    let indexofMax = nums.findIndex(function(element) {
+        return element == max;
+    });
+    let counter = 1;
 
-                                //if(performance.navigation.type == performance.navigation.TYPE_RELOAD)
-                                //{
-                                    //workWithCookies(max);
-                                //}
+    for(let i = 0; i < nums.length; i++)
+    {
+        if(i != indexofMax && nums[i] == max)
+        {
+            ++counter;
+        }
+    }
 
-                                //window.onload() = function() { workWithCookies(max); };
+    alert("The max value is " + max + "\nThe quantity = " + counter);
+    document.cookie = "maxValue="+max;
+    document.cookie =  "quantity="+counter;
+}
 
-                                
+function deleteCookies()
+{
+    const cookiesContent = document.cookie.split(";");
 
-                                function workWithCookies(value)
-                                {
-                                    //if(document.cookie.includes('value='))
-                                    //{
-                                        let cookieValue = document.cookie.split('value=')[1].split(';')[0];
-                                    // }
-                                    //document.cookie = "value="+value + "; expires = Mon, 01 Jan 2024 00:00:00; path=/";
+    for(let i = 0; i < cookiesContent.length; i++)
+    {
+        const cookie = cookiesContent[i];
+        const eqPos = cookiesContent.indexOf("=");
+        var name = eqPos > -1? cookie.substring(0, eqPos) : cookie;
+        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    }
 
-                                    //if(performance.navigation.type == performance.navigation.TYPE_RELOAD)
-                                    //{
-                                        
-                                        //let cookieValue = document.cookie;
-                                        //alert("The value from cookie is " + cookieValue+ "\nWhen you press Ok, this value will be deleted from the cookie");
-                                        if(confirm("The value from cookie is " + cookieValue+ "\nWhen you press Ok, this value will be deleted from the cookie"))
-                                        {
-                                            document.cookie ="value=; expires = Thu, 01 Jan 1975 00:00:00 GMT; path = /;";
-                                            alert("File cookies was succesfully deleted");
-                                            location.reload();
-                                        }
-                                    //}
-                                }
+    window.location.reload();
+}
 
-                                //workWithCookies();
-
-
-
-                                
-                            </script>
+function getcookie()
+{
+    if(document.cookie !== '')
+    {
+        alert(document.cookie + "\nCookie will be deleted after you press OK");
+        deleteCookies();
+        alert("Cookies deleted");
+    }
+}
+                            </script> 
 
                             <div id="Block_with_square"></div>
                             <script>
@@ -192,14 +195,7 @@
 
 
                     <script>
-                        class unorderlist
-                        {
-                            constructor()
-                            {
-                                this.counter = 1;
-                                this.unorderedList = [];
-                            }
-                        }
+                        
                             function setForm(block) {
                                 var selectedText = window.getSelection().toString();
                                 if (selectedText === "In the name of Hades" && document.getElementById('listForm') === null) 
@@ -208,7 +204,7 @@
                                     "<label for='item'>Element of list:</label>" +
                                     "<input type='text' id='item' name='item' required>" +
                                     "<button type='button' onclick='Append()'>Add</button>" +
-                                    "<button type='button' onclick='list.saveList()'>Save</button>" +
+                                    "<button type='button' onclick='saveList()'>Save</button>" +
                                     "<h4>Unordered list:</h2>" +
                                     "</form>" +
                                     "<ul id='outputList'></ul>";
@@ -222,14 +218,78 @@
                             document.getElementById("item").value = '';
                             var outputList = document.getElementById("outputList");
                             var listItem = document.createElement("li");
-                            var listI = '$' + newItem;
+                            var listI = newItem;
                             //this.(listI);
                             
                             listItem.appendChild(document.createTextNode(listI));
-                            this.counter++;
                             outputList.appendChild(listItem);
                         }
 
+                        function saveList()
+                        {
+                            var listContent = [];
+                            var listItems = document.querySelectorAll("#outputList li");
+                            listItems.forEach(function(item) {
+                                listContent.push(item.textContent);
+                            }); 
+
+                            localStorage.setItem("uList", JSON.stringify(listContent));
+                            alert("List was saved");
+                        }
+
+                        document.addEventListener("DOMContentLoaded", function() {
+                            console.log("Єбать");
+                            LoadList();
+                        });
+
+                        function LoadList()
+                        {
+                            console.log("LoadListcalled");
+                            if(localStorage.getItem("uList"))
+                            {
+                                var listContents = JSON.parse(localStorage.getItem("uList"));
+                                console.log(listContents); //тестовий рядок
+                                if(Array.isArray(listContents))
+                                {
+                                    const infoBlock = document.getElementById('Info');
+
+                                    //var outputList = document.getElementById("outputList");
+                                    var outputList = document.createElement('ul');
+                                    infoBlock.appendChild(outputList);
+                                    console.log("CheckOutputList");
+
+
+                                    listContents.forEach(function(itemText) {
+                                        //document.getElementById("outputList").createElement("li");
+                                        //var listItem = document.createElement("li");
+                                        //listItem.appendChild(document.createTextNode(itemText));
+                                        //outputList.appendChild(listItem);
+
+                                        const itemEl = document.createElement('li');
+                                        itemEl.innerText = itemText;
+                                        outputList.appendChild(itemEl);
+                                    
+                                    });
+
+                                }
+
+                                else{
+                                    console.error("listContents is not an array:", listContents);
+                                }
+                                var outputList = document.getElementById("outputList");
+                                console.log("CheckOutputList");
+
+                                listContents.forEach(function(itemText) {
+                                    var listItem = document.createElement("li");
+                                    listItem.appendChild(document.createTextNode(itemText));
+                                    outputList.appendChild(listItem);
+                                    
+                                });
+                                
+                            }
+                        }
+
+                        //if(window.location.reload())
                         </script>
 
                     <div class="menu block" id = "menu">
